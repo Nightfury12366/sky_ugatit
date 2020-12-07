@@ -4,17 +4,19 @@ from utils import *
 
 """parsing and configuration"""
 
+
 def parse_args():
     desc = "Pytorch implementation of U-GAT-IT"
     parser = argparse.ArgumentParser(description=desc)
     parser.add_argument('--phase', type=str, default='train', help='[train / test]')
-    parser.add_argument('--light', type=str2bool, default=False, help='[U-GAT-IT full version / U-GAT-IT light version]')
-    parser.add_argument('--dataset', type=str, default='YOUR_DATASET_NAME', help='dataset_name')
+    parser.add_argument('--light', type=str2bool, default=True,
+                        help='[U-GAT-IT full version / U-GAT-IT light version]')
+    parser.add_argument('--dataset', type=str, default='dress2short', help='dataset_name')
 
     parser.add_argument('--iteration', type=int, default=1000000, help='The number of training iterations')
     parser.add_argument('--batch_size', type=int, default=1, help='The size of batch size')
-    parser.add_argument('--print_freq', type=int, default=1000, help='The number of image print freq')
-    parser.add_argument('--save_freq', type=int, default=100000, help='The number of model save freq')
+    parser.add_argument('--print_freq', type=int, default=10000000, help='The number of image print freq')
+    parser.add_argument('--save_freq', type=int, default=20000, help='The number of model save freq')
     parser.add_argument('--decay_flag', type=str2bool, default=True, help='The decay_flag')
 
     parser.add_argument('--lr', type=float, default=0.0001, help='The learning rate')
@@ -34,11 +36,14 @@ def parse_args():
     parser.add_argument('--result_dir', type=str, default='results', help='Directory name to save the results')
     parser.add_argument('--device', type=str, default='cuda', choices=['cpu', 'cuda'], help='Set gpu mode; [cpu, cuda]')
     parser.add_argument('--benchmark_flag', type=str2bool, default=False)
-    parser.add_argument('--resume', type=str2bool, default=False)
+    parser.add_argument('--resume', type=str2bool, default=True)
 
     return check_args(parser.parse_args())
 
+
 """checking arguments"""
+
+
 def check_args(args):
     # --result_dir
     check_folder(os.path.join(args.result_dir, args.dataset, 'model'))
@@ -58,12 +63,15 @@ def check_args(args):
         print('batch size must be larger than or equal to one')
     return args
 
+
 """main"""
+
+
 def main():
     # parse arguments
     args = parse_args()
     if args is None:
-      exit()
+        exit()
 
     # open session
     gan = UGATIT(args)
@@ -71,13 +79,14 @@ def main():
     # build graph
     gan.build_model()
 
-    if args.phase == 'train' :
+    if args.phase == 'train':
         gan.train()
         print(" [*] Training finished!")
 
-    if args.phase == 'test' :
+    if args.phase == 'test':
         gan.test()
         print(" [*] Test finished!")
+
 
 if __name__ == '__main__':
     main()
