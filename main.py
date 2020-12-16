@@ -69,6 +69,8 @@ def check_args(args):
 
 def main():
     # parse arguments
+    # import os
+    # os.environ["CUDA_VISIBLE_DEVICES"] = "2"
     args = parse_args()
     if args is None:
         exit()
