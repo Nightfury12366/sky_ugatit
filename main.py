@@ -70,6 +70,8 @@ def check_args(args):
 
 def main():
     # parse arguments
+    # import os
+    # os.environ["CUDA_VISIBLE_DEVICES"] = "2"
     args = parse_args()
     import os
     gpu_id = args.gpu_ids
