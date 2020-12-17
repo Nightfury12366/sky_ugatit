@@ -9,9 +9,10 @@ def parse_args():
     desc = "Pytorch implementation of U-GAT-IT"
     parser = argparse.ArgumentParser(description=desc)
     parser.add_argument('--phase', type=str, default='train', help='[train / test]')
-    parser.add_argument('--light', type=str2bool, default=True,
+    parser.add_argument('--light', type=str2bool, default=False,
                         help='[U-GAT-IT full version / U-GAT-IT light version]')
     parser.add_argument('--dataset', type=str, default='dress2short', help='dataset_name')
+    parser.add_argument('--gpu_ids', type=int, default=0, help='use what gpu')
 
     parser.add_argument('--iteration', type=int, default=1000000, help='The number of training iterations')
     parser.add_argument('--batch_size', type=int, default=1, help='The size of batch size')
@@ -70,6 +71,10 @@ def check_args(args):
 def main():
     # parse arguments
     args = parse_args()
+    import os
+    gpu_id = args.gpu_ids
+    os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
+
     if args is None:
         exit()
 
