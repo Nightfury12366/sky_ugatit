@@ -114,6 +114,8 @@ class UGATIT(object) :
         self.disLA = Discriminator(input_nc=3, ndf=self.ch, n_layers=5).to(self.device)
         self.disLB = Discriminator(input_nc=3, ndf=self.ch, n_layers=5).to(self.device)
 
+        """怎么使用multiGPU"""
+
         """ Define Loss """
         self.L1_loss = nn.L1Loss().to(self.device)
         self.MSE_loss = nn.MSELoss().to(self.device)

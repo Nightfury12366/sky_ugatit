@@ -13,6 +13,7 @@ def parse_args():
                         help='[U-GAT-IT full version / U-GAT-IT light version]')
     parser.add_argument('--dataset', type=str, default='dress2short', help='dataset_name')
     parser.add_argument('--gpu_ids', type=int, default=0, help='use what gpu')
+    parser.add_argument('num_gpu', tpye=[], default=[0, 1, 2, 3], help='how many gpu you can use')
 
     parser.add_argument('--iteration', type=int, default=1000000, help='The number of training iterations')
     parser.add_argument('--batch_size', type=int, default=1, help='The size of batch size')
